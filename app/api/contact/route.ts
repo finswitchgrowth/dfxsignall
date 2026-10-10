@@ -12,7 +12,6 @@ export async function POST(request: Request) {
   const b = raw as Record<string, unknown>;
   if (clean(b.website)) return Response.json({ ok: true });
   const name = clean(b.name, 100), email = clean(b.email, 254).toLowerCase(), topic = clean(b.topic, 80), message = clean(b.message, 4000);
-  // Keep this as a standard email pattern; escaped backslashes must remain single in the regex literal.
   if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length < 5)
     return jsonError("Enter a valid name, email and message.");
   const allowed = ["General enquiry", "Business & partnerships", "Platform launch updates", "Security report", "Compliance & legal"];
@@ -28,10 +27,10 @@ export async function POST(request: Request) {
     const r = await fetch("https://api.web3forms.com/submit", { method: "POST", body: form, cache: "no-store" });
     const data = await r.json().catch(() => ({}));
     if (!r.ok || data.success !== true) {
-      const providerMessage = clean((data as Record<string, unknown>)?.message, 220);
+      const providerMessage = clean((data as Record<string, unknown>)?.message, 300);
       console.error("[contact] Web3Forms rejected submission", { status: r.status, providerMessage: providerMessage || "No provider message" });
-      const safeMessage = providerMessage && /^[a-zA-Z0-9 .,;:'()_-]+$/.test(providerMessage) ? providerMessage : "The email provider rejected the submission.";
-      return jsonError(`Contact delivery failed: ${safeMessage} Please try again or email dfxsignall@gmail.com.`, 502);
+      const safeMessage = (providerMessage || "The email provider rejected the submission.").replace(/[^a-zA-Z0-9 .,;:'()_\-/]/g, " ").replace(/\s+/g, " ").slice(0, 180);
+      return jsonError(`Contact delivery failed: ${safeMessage} Please email dfxsignall@gmail.com if the issue continues.`, 502);
     }
     return Response.json({ ok: true }, { status: 201 });
   } catch (error) {
