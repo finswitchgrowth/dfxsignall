@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Copy, Upload, Clock3, ShieldCheck } from "lucide-react";
 
 const methods = [
@@ -25,6 +25,7 @@ export function ManualCryptoPayment() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  useEffect(() => { const requested = new URLSearchParams(window.location.search).get("plan"); if (requested && plans.some(p => p.id === requested)) setPlan(requested); }, []);
   const selected = methods.find((m) => m.id === method)!;
 
   async function submitProof() {
