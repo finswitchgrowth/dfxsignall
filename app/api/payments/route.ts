@@ -1,9 +1,9 @@
-import { currentUser, platformEnv, jsonError, userRest } from "@/lib/platform-env";
+import { currentUser, accessToken, platformEnv, jsonError, userRest } from "@/lib/platform-env";
 export const runtime="nodejs";
 const networks=new Set(["BTC","USDT-ERC20","USDT-TRC20"]);
 export async function POST(request:Request){
  const user=await currentUser(request); if(!user)return jsonError("Sign in before submitting payment proof.",401);
- const token=request.headers.get("authorization")?.replace(/^Bearer\s+/i,""); if(!token)return jsonError("Sign-in session missing.",401);
+ const token=accessToken(request); if(!token)return jsonError("Sign-in session missing.",401);
  const form=await request.formData().catch(()=>null); if(!form)return jsonError("Invalid form data.");
  const planId=String(form.get("planId")||""),network=String(form.get("network")||""),file=form.get("proof");
  if(!networks.has(network))return jsonError("Unsupported payment network.");
