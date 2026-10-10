@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     return jsonError("Enter a valid name, email and message.");
   const allowed = ["General enquiry", "Business & partnerships", "Platform launch updates", "Security report", "Compliance & legal"];
   if (!allowed.includes(topic)) return jsonError("Select a valid topic.");
-  const key = process.env.WEB3FORMS_ACCESS_KEY;
+  const key = process.env.WEB3FORMS_ACCESS_KEY || process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
   if (!key) return jsonError("Contact delivery is not configured yet. Please email dfxsignall@gmail.com directly.", 503);
   const form = new FormData();
   form.set("access_key", key);
