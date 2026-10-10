@@ -31,7 +31,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       } else {
         const response=await fetch("/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,password})});
         const data=await response.json();if(!response.ok)throw new Error(data.error||"Sign in failed.");
-        router.push("/dashboard");router.refresh();
+        const destination=await fetch("/api/auth/destination",{cache:"no-store",credentials:"same-origin"});const route=await destination.json();router.push(destination.ok&&route.destination==="/admin"?"/admin":"/dashboard");router.refresh();
       }
     } catch(e){setError(e instanceof Error?e.message:"Something went wrong.");}
     finally{setBusy(false);}
