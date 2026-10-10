@@ -1,5 +1,5 @@
-import { currentUser, jsonError, platformEnv, userRest } from "@/lib/platform-env";
-function tokenFrom(request:Request){return request.headers.get("authorization")?.replace(/^Bearer\\s+/i,"")||"";}
+import { currentUser, accessToken, jsonError, platformEnv, userRest } from "@/lib/platform-env";
+function tokenFrom(request:Request){return accessToken(request)||"";}
 export async function GET(request:Request){
  const user=await currentUser(request);if(!user)return jsonError("Authentication required.",401);
  const token=tokenFrom(request);if(!token)return jsonError("Session missing.",401);
