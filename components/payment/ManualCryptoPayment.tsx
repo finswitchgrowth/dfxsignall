@@ -31,12 +31,10 @@ export function ManualCryptoPayment() {
   async function submitProof() {
     setBusy(true); setMessage(""); setError("");
     try {
-      const token = sessionStorage.getItem("dfxsignall_access_token");
-      if (!token) throw new Error("Please sign in first, then return to this page.");
       if (!receipt) throw new Error("Choose your transaction screenshot first.");
       const body = new FormData();
       body.set("planId", plan); body.set("network", method); body.set("proof", receipt);
-      const response = await fetch("/api/payments", { method: "POST", headers: { Authorization: `Bearer ${token}` }, body });
+      const response = await fetch("/api/payments", { method: "POST", credentials: "same-origin", body });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Could not submit payment.");
       setMessage(data.message || "Payment proof submitted for review.");
