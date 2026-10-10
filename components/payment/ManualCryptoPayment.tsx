@@ -12,10 +12,27 @@ const methods = [
 export function ManualCryptoPayment() {
   const [method, setMethod] = useState(methods[0].id);
   const [copied, setCopied] = useState(false);
-  const [receipt, setReceipt] = useState<File | null>(null);\n  const [plan, setPlan] = useState("pro");\n  const [busy, setBusy] = useState(false);\n  const [message, setMessage] = useState("");\n  const [error, setError] = useState("");
+  const [receipt, setReceipt] = useState<File | null>(null);
+  const [plan, setPlan] = useState("pro");
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const selected = methods.find((m) => m.id === method)!;
 
-  async function submitProof() {\n    setBusy(true); setMessage(""); setError("");\n    try {\n      const token = sessionStorage.getItem("dfxsignall_access_token");\n      if (!token) throw new Error("Please sign in first, then return to this page.");\n      if (!receipt) throw new Error("Choose your transaction screenshot first.");\n      const body = new FormData(); body.set("planId", plan); body.set("network", method); body.set("proof", receipt);\n      const response = await fetch("/api/payments", { method: "POST", headers: { Authorization: `Bearer ${token}` }, body });\n      const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not submit payment.");\n      setMessage(data.message || "Payment proof submitted for review."); setReceipt(null);\n    } catch (e) { setError(e instanceof Error ? e.message : "Submission failed."); } finally { setBusy(false); }\n  }\n\n  async function copyAddress() {
+  async function submitProof() {
+    setBusy(true); setMessage(""); setError("");
+    try {
+      const token = sessionStorage.getItem("dfxsignall_access_token");
+      if (!token) throw new Error("Please sign in first, then return to this page.");
+      if (!receipt) throw new Error("Choose your transaction screenshot first.");
+      const body = new FormData(); body.set("planId", plan); body.set("network", method); body.set("proof", receipt);
+      const response = await fetch("/api/payments", { method: "POST", headers: { Authorization: `Bearer ${token}` }, body });
+      const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not submit payment.");
+      setMessage(data.message || "Payment proof submitted for review."); setReceipt(null);
+    } catch (e) { setError(e instanceof Error ? e.message : "Submission failed."); } finally { setBusy(false); }
+  }
+
+  async function copyAddress() {
     try {
       await navigator.clipboard.writeText(selected.address);
       setCopied(true);
@@ -33,7 +50,12 @@ export function ManualCryptoPayment() {
         <p className="t-lead mt-5 max-w-2xl">Package prices are shown in USD. Send the equivalent amount using the exact network below, then upload your transaction screenshot for manual review.</p>
 
         <section className="glass-panel mt-10 rounded-2xl p-5 md:p-8">
-          <h2 className="text-xl font-semibold">1. Select package (USD)</h2>\n          <select value={plan} onChange={e=>setPlan(e.target.value)} className="mt-4 w-full rounded-xl border border-white/15 bg-black/30 p-3 text-white">\n            <option value="pro">DFX PRO — $39 / month</option>\n            <option value="elite">DFX ELITE — $99 / month</option>\n          </select>\n          <h2 className="mt-7 text-xl font-semibold">2. Choose payment network</h2>
+          <h2 className="text-xl font-semibold">1. Select package (USD)</h2>
+          <select value={plan} onChange={e=>setPlan(e.target.value)} className="mt-4 w-full rounded-xl border border-white/15 bg-black/30 p-3 text-white">
+            <option value="pro">DFX PRO — $39 / month</option>
+            <option value="elite">DFX ELITE — $99 / month</option>
+          </select>
+          <h2 className="mt-7 text-xl font-semibold">2. Choose payment network</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {methods.map((m) => (
               <button key={m.id} type="button" onClick={() => { setMethod(m.id); setCopied(false); }}
