@@ -8,9 +8,21 @@ export function ContactForm() {
   const [busy,setBusy]=useState(false);const [message,setMessage]=useState("");const [error,setError]=useState("");
   async function onSubmit(e:FormEvent<HTMLFormElement>){
     e.preventDefault();setBusy(true);setMessage("");setError("");
-    const form=e.currentTarget;const data=Object.fromEntries(new FormData(form).entries());
-    try{const r=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await r.json();if(!r.ok)throw new Error(result.error||"Could not send your message.");setMessage("Your message has been delivered to the DFXSIGNALL team.");form.reset();}
-    catch(err){setError(err instanceof Error?err.message:"Could not send your message.");}finally{setBusy(false);}
+    const form=e.currentTarget;
+    const data=new FormData(form);
+    if(String(data.get("website")||"").trim()){setMessage("Your message has been submitted.");setBusy(false);return;}
+    const accessKey=process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if(!accessKey){setError("Contact form setup is incomplete. Please email dfxsignall@gmail.com directly.");setBusy(false);return;}
+    data.set("access_key",accessKey);
+    data.set("subject",`[DFXSIGNALL] ${String(data.get("topic")||"General enquiry")} from ${String(data.get("name")||"Website visitor")}`);
+    data.set("from_name","DFXSIGNALL Website");
+    try{
+      const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:data,headers:{Accept:"application/json"}});
+      const result=await r.json().catch(()=>({}));
+      if(!r.ok||result.success!==true)throw new Error(typeof result.message==="string"?result.message:"Web3Forms rejected the submission. Check the access key and allowed domain.");
+      setMessage("Your message has been delivered to the DFXSIGNALL team.");form.reset();
+    }catch(err){setError(err instanceof Error?err.message:"Could not send your message. Please try again.");}
+    finally{setBusy(false);}
   }
   const field="mt-2 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--color-ink-950)]/60 px-4 py-3 text-sm text-[var(--color-fg)] outline-none transition-colors placeholder:text-[var(--color-dim)] focus:border-[var(--color-cyan)]/60";
   return <form onSubmit={onSubmit} className="panel grid gap-5 p-6 sm:p-8">
