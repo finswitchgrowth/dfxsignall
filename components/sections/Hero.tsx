@@ -142,6 +142,9 @@ export function Hero() {
             <ButtonLink href="/register" variant="ghost">
               Get Started
             </ButtonLink>
+            <ButtonLink href="/account-management" variant="ghost">
+              Account Management Services <ArrowUpRight size={16} />
+            </ButtonLink>
             <Link href="/login" className="link-u ml-2 px-1 text-sm text-[var(--color-fg-soft)]">
               Login
             </Link>
