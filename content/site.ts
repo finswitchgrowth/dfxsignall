@@ -37,6 +37,7 @@ export const primaryNav: NavItem[] = [
   { label: "Platform", href: "/platform" },
   { label: "Signals", href: "/signals" },
   { label: "Markets", href: "/markets" },
+  { label: "Trading Tools", href: "/trading-tools" },
   { label: "Packages", href: "/packages" },
   { label: "Security", href: "/security" },
   { label: "Insights", href: "/blog" },
