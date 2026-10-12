@@ -4,7 +4,7 @@ const selections = {
   profiles: "profiles?select=id,display_name,email,created_at&order=created_at.desc&limit=500",
   roles: "user_roles?select=user_id,role,granted_at&limit=1000",
   entitlements: "entitlements?select=id,user_id,plan_id,status,starts_at,ends_at,created_at&order=created_at.desc&limit=1000",
-  payments: "payment_reviews?select=id,user_id,plan_id,amount_minor,currency,provider,provider_reference,status,reviewer_note,reviewed_by,reviewed_at,created_at&order=created_at.desc&limit=1000",
+  payments: "payment_reviews?select=id,user_id,plan_id,amount_minor,currency,provider,provider_reference,proof_storage_path,status,reviewer_note,reviewed_by,reviewed_at,created_at&order=created_at.desc&limit=1000",
   plans: "plans?select=id,name,currency,price_minor,signal_limit_per_day,auto_trading_enabled,active,billing_interval,entitlement_days&order=price_minor.asc",
   tickets: "support_tickets?select=id,user_id,subject,body,status,assigned_to,created_at,updated_at&order=updated_at.desc&limit=500",
   affiliates: "affiliate_profiles?select=user_id,referral_code,status,commission_basis_points,created_at&order=created_at.desc&limit=500",
@@ -31,6 +31,23 @@ export async function GET(request: Request) {
     }
   }));
   const data = Object.fromEntries(results.map(([key, value]) => [key, value.data]));
+  const { url, anon } = (await import("@/lib/platform-env")).platformEnv();
+  const payments = (data.payments || []) as Array<{ proof_storage_path?: string | null; [key:string]: unknown }>;
+  data.payments = await Promise.all(payments.map(async (payment) => {
+    const path = payment.proof_storage_path;
+    if (!path) return { ...payment, proof_url: null };
+    try {
+      const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+      const signed = await fetch(url + "/storage/v1/object/sign/payment-proofs/" + encodedPath, {
+        method: "POST",
+        headers: { apikey: anon, Authorization: "Bearer " + token, "Content-Type": "application/json" },
+        body: JSON.stringify({ expiresIn: 600 }),
+        cache: "no-store",
+      });
+      const result = await signed.json().catch(() => ({})) as { signedURL?: string };
+      return { ...payment, proof_url: signed.ok && result.signedURL ? url + "/storage/v1" + (result.signedURL.startsWith("/") ? result.signedURL : "/" + result.signedURL) : null };
+    } catch { return { ...payment, proof_url: null }; }
+  }));
   const warnings = results.filter(([, value]) => value.error).map(([, value]) => value.error);
   const profiles = data.profiles as Array<{id:string}>;
   const entitlements = data.entitlements as Array<{status:string}>;
