@@ -7,7 +7,6 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useRef, type MouseEvent } from "react";
 import { LazyHeroCanvas } from "@/components/3d/LazyScenes";
 import { ButtonLink } from "@/components/ui/Interactive";
-import { DemoBadge } from "@/components/ui/Primitives";
 import { site } from "@/content/site";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -20,7 +19,7 @@ function SignalGlassCard() {
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-[var(--color-amber)]/15 text-[0.62rem] font-bold text-[var(--color-amber)]">₿</span>
           <div>
             <p className="t-num text-sm font-semibold">BTC/USDT</p>
-            <p className="text-[0.66rem] text-[var(--color-dim)]">4H · Sample signal</p>
+            <p className="text-[0.66rem] text-[var(--color-dim)]">4H · Illustrative example</p>
           </div>
         </div>
         <span className="rounded-md bg-[var(--color-green)]/12 px-2 py-1 text-[0.66rem] font-bold tracking-wider text-[var(--color-green)]">BUY</span>
@@ -44,7 +43,7 @@ function SignalGlassCard() {
           </div>
           <span className="t-num text-[0.66rem] text-[var(--color-muted)]">Confidence 68</span>
         </div>
-        <DemoBadge label="Demo" className="h-5 px-1.5 text-[0.55rem]" />
+        <span className="text-[0.58rem] text-[var(--color-muted)]">Illustrative only</span>
       </div>
     </div>
   );
@@ -70,7 +69,7 @@ function MiniTickerCard() {
           />
         ))}
       </div>
-      <p className="mt-2 text-[0.6rem] uppercase tracking-[0.18em] text-[var(--color-dim)]">Simulated · not live</p>
+      <p className="mt-2 text-[0.6rem] uppercase tracking-[0.18em] text-[var(--color-dim)]">Illustrative visual · live charts on Markets</p>
     </div>
   );
 }
