@@ -6,7 +6,7 @@ export async function GET(request:Request){
  const token=tokenFrom(request);if(!token)return jsonError("Session missing.",401);
  const role=await userRest(`user_roles?user_id=eq.${user.id}&role=in.(admin,finance)&select=role`,token);
  if(!role.ok||!(await role.json()).length)return jsonError("Administrator/finance access required.",403);
- const rows=await userRest("payment_reviews?status=eq.pending&select=id,user_id,plan_id,amount_minor,currency,provider,created_at,proof_storage_path&order=created_at.asc",token);
+ const rows=await userRest("payment_reviews?select=id,user_id,plan_id,amount_minor,currency,provider,created_at,proof_storage_path,status,reviewer_note,reviewed_by,reviewed_at&order=created_at.desc&limit=1000",token);
  if(!rows.ok)return jsonError("Could not load review queue.",503);
  const {url,anon}=platformEnv();
  const payments=await rows.json() as Array<{proof_storage_path:string;[key:string]:unknown}>;
