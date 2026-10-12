@@ -1,4 +1,4 @@
-import { accessToken, currentUser, jsonError, userRest } from "@/lib/platform-env";
+import { accessToken, currentUser, jsonError, platformEnv, userRest } from "@/lib/platform-env";
 
 const selections = {
   profiles: "profiles?select=id,display_name,email,created_at&order=created_at.desc&limit=500",
@@ -31,9 +31,9 @@ export async function GET(request: Request) {
     }
   }));
   const data = Object.fromEntries(results.map(([key, value]) => [key, value.data]));
-  const { url, anon } = (await import("@/lib/platform-env")).platformEnv();
-  const payments = (data.payments || []) as Array<{ proof_storage_path?: string | null; [key:string]: unknown }>;
-  data.payments = await Promise.all(payments.map(async (payment) => {
+  const { url, anon } = platformEnv();
+  const paymentRows = (data.payments || []) as Array<{ proof_storage_path?: string | null; [key:string]: unknown }>;
+  data.payments = await Promise.all(paymentRows.map(async (payment) => {
     const path = payment.proof_storage_path;
     if (!path) return { ...payment, proof_url: null };
     try {
