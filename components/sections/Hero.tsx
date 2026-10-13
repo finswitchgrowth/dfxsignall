@@ -1,7 +1,6 @@
 "use client";
 
 import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
-import Link from "next/link";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useRef, type MouseEvent } from "react";
@@ -144,9 +143,6 @@ export function Hero() {
             <ButtonLink href="/account-management" variant="ghost">
               Account Management Services <ArrowUpRight size={16} />
             </ButtonLink>
-            <Link href="/login" className="link-u ml-2 px-1 text-sm text-[var(--color-fg-soft)]">
-              Login
-            </Link>
           </motion.div>
 
           <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.25, duration: 1 }} className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-5" aria-label="DFXSIGNALL pillars">
