@@ -20,7 +20,7 @@ const rows: { group: string; items: { label: string; values: (boolean | string)[
     group: "Signals",
     items: [
       { label: "Signal access", values: sortedPackages.map((p) => p.signalAccess) },
-      { label: "Entry / stop loss / take profit", values: [false, true, true] },
+      { label: "Entry / stop loss / take profit", values: [false, true] },
       { label: "Risk rating + rationale", values: [false, true, true] },
       { label: "Signal history & analytics", values: [false, true, true] },
     ],
@@ -29,15 +29,15 @@ const rows: { group: string; items: { label: string; values: (boolean | string)[
     group: "Markets & insight",
     items: [
       { label: "Market access", values: sortedPackages.map((p) => p.marketAccess) },
-      { label: "Selected market insights", values: [true, true, true] },
-      { label: "Advanced market commentary", values: [false, false, true] },
+      { label: "Selected market insights", values: [true, true] },
+      { label: "Advanced market commentary", values: [false, true] },
       { label: "Portfolio risk dashboard", values: [false, false, true] },
     ],
   },
   {
     group: "Alerts & support",
     items: [
-      { label: "Alerts", values: ["Basic", "Telegram / app-ready", "Telegram / app-ready"] },
+      { label: "Alerts", values: ["Selected updates", "Expanded updates"] },
       { label: "Educational content", values: [true, true, true] },
       { label: "Priority support", values: [false, false, true] },
     ],
@@ -86,7 +86,7 @@ export default function PricingPage() {
                   {rows.map((g) => (
                     <Fragment key={g.group}>
                       <tr>
-                        <th colSpan={4} scope="colgroup" className="t-eyebrow bg-white/[0.02] px-5 py-3 text-[0.62rem] text-[var(--color-dim)]">
+                        <th colSpan={sortedPackages.length + 1} scope="colgroup" className="t-eyebrow bg-white/[0.02] px-5 py-3 text-[0.62rem] text-[var(--color-dim)]">
                           {g.group}
                         </th>
                       </tr>
