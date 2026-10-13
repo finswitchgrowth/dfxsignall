@@ -1,15 +1,125 @@
-/** DFXSIGNALL plan catalogue. Names and prices mirror the existing payment selector. Paid access remains pending until manual payment review is approved. */
+/**
+ * DFXSIGNALL plan catalogue. Approved prices and deliverables are preserved.
+ * Paid access is granted only after manual crypto payment review.
+ * Auto Trading Tools is tools-only; live execution remains disabled.
+ */
 export type PackageStatus = "coming-soon" | "available" | "paused";
 export type SignalPackage = {
-  id:string; name:string; tier:string; description:string; price:number; currency:"USD";
-  duration:string; features:string[]; signalAccess:string; marketAccess:string;
-  status:PackageStatus; featured:boolean; order:number;
+  id: string;
+  name: string;
+  tier: string;
+  description: string;
+  price: number;
+  currency: "USD";
+  duration: string;
+  features: string[];
+  signalAccess: string;
+  marketAccess: string;
+  status: PackageStatus;
+  featured: boolean;
+  order: number;
 };
-export const packages:SignalPackage[]=[
- {id:"starter",name:"DFX STARTER",tier:"Starter",description:"A clear entry point to market updates and foundational signal education.",price:9,currency:"USD",duration:"month",features:["Starter-level market updates","Foundational signal education","Published signal status and risk notes","Manual payment review before access"],signalAccess:"Starter access, subject to account entitlement",marketAccess:"Covered markets shown in published updates",status:"available",featured:false,order:1},
- {id:"pro",name:"DFX PRO",tier:"Most popular",description:"A broader signal and market-information package for active users.",price:25,currency:"USD",duration:"month",features:["Expanded market updates","Published entry, stop-loss and take-profit details when supplied","Signal status and risk notes","Manual payment review before access"],signalAccess:"PRO access, subject to account entitlement",marketAccess:"Covered markets shown in published updates",status:"available",featured:true,order:2},
- {id:"elite",name:"DFX ELITE",tier:"Advanced",description:"Expanded signal access and detailed market context for members with an active Elite entitlement.",price:49,currency:"USD",duration:"month",features:["All published Free signals","Elite-only signals when published","Detailed entry, invalidation and risk notes when available","Signal history and status updates","Market commentary"],signalAccess:"Free + Elite signals",marketAccess:"Covered markets",status:"available",featured:false,order:3},
- {id:"auto-trading-tools",name:"AUTO TRADING TOOLS",tier:"Tools only",description:"Tools and educational features only. Live execution is disabled.",price:199,currency:"USD",duration:"month",features:["Tools-only access","Educational material where available","No broker execution or automated orders","Manual payment review before access"],signalAccess:"No live trade execution",marketAccess:"Tools and educational content only",status:"available",featured:false,order:4},
- {id:"market-starter-pack",name:"MARKET STARTER PACK",tier:"One-time pack",description:"A one-time market starter pack for foundational market information and learning resources.",price:19,currency:"USD",duration:"one-time",features:["One-time purchase","Market starter information and learning resources","No recurring monthly charge","Manual payment review before access"],signalAccess:"Starter-pack materials",marketAccess:"Market information and learning resources",status:"available",featured:false,order:5},
+
+export const packages: SignalPackage[] = [
+  {
+    id: "starter",
+    name: "DFX STARTER",
+    tier: "Build a trading routine",
+    description: "A practical starting point for building a consistent trading-learning routine.",
+    price: 9,
+    currency: "USD",
+    duration: "month",
+    features: [
+      "Daily market briefs",
+      "Forex learning library",
+      "Basic journal templates",
+    ],
+    signalAccess: "Starter market briefs and learning",
+    marketAccess: "Forex learning resources",
+    status: "available",
+    featured: false,
+    order: 1,
+  },
+  {
+    id: "pro",
+    name: "DFX PRO",
+    tier: "Most popular",
+    description: "Expanded daily insights, research archives and workflow support for active users.",
+    price: 25,
+    currency: "USD",
+    duration: "month",
+    features: [
+      "Up to 5 daily insights, subject to availability",
+      "Expanded research and archives",
+      "Advanced workflow and risk tools",
+      "Priority product support",
+    ],
+    signalAccess: "Up to 5 daily insights, subject to availability",
+    marketAccess: "Expanded research and archives",
+    status: "available",
+    featured: true,
+    order: 2,
+  },
+  {
+    id: "elite",
+    name: "DFX ELITE",
+    tier: "For serious individual users",
+    description: "Deeper research and advanced review workflows for serious individual users.",
+    price: 49,
+    currency: "USD",
+    duration: "month",
+    features: [
+      "All Pro features",
+      "Deeper research briefings",
+      "Advanced review templates",
+      "Early access to eligible tools",
+    ],
+    signalAccess: "All Pro features",
+    marketAccess: "Deeper research briefings",
+    status: "available",
+    featured: false,
+    order: 3,
+  },
+  {
+    id: "auto-trading-tools",
+    name: "AUTO TRADING TOOLS",
+    tier: "Tools only · live execution disabled",
+    description: "Automation workspace and configuration support; live execution is disabled.",
+    price: 199,
+    currency: "USD",
+    duration: "month",
+    features: [
+      "Automation workspace and configuration support",
+      "Risk settings and execution logs where supported",
+      "Compatible platform integration required",
+      "No guaranteed execution outcomes or profits",
+      "Tools only — live execution disabled",
+    ],
+    signalAccess: "Tools and configuration only",
+    marketAccess: "Compatible platforms where supported",
+    status: "available",
+    featured: false,
+    order: 4,
+  },
+  {
+    id: "market-starter-pack",
+    name: "MARKET STARTER PACK",
+    tier: "One-time purchase",
+    description: "Foundational market resources for planning, analysis and risk management.",
+    price: 19,
+    currency: "USD",
+    duration: "one-time",
+    features: [
+      "Forex market basics",
+      "Trading plan and journal templates",
+      "Risk-management checklist",
+    ],
+    signalAccess: "Educational resources",
+    marketAccess: "Forex market basics",
+    status: "available",
+    featured: false,
+    order: 5,
+  },
 ];
-export const sortedPackages=[...packages].sort((a,b)=>a.order-b.order);
+
+export const sortedPackages = [...packages].sort((a, b) => a.order - b.order);
