@@ -6,6 +6,7 @@ import { GeistMono } from "geist/font/mono";
 import { IntroLoader } from "@/components/brand/IntroLoader";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { PWAInstall } from "@/components/layout/PWAInstall";
 import { Providers } from "@/components/layout/Providers";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { site } from "@/content/site";
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <IntroLoader />
           <SmoothScroll />
           <Navbar />
+          <PWAInstall />
           <main id="main">{children}</main>
           <Footer />
         </Providers>
