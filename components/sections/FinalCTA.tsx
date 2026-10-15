@@ -18,17 +18,17 @@ export function FinalCTA() {
           <BrandLogo variant="mark" width={116} />
         </Reveal>
         <h2 id="final-cta" className="t-display mt-8 max-w-4xl">
-          <RevealWords text="Enter the DFXSIGNALL ecosystem." className="text-silver" />
+          <RevealWords text="Start with a clear account-management plan." className="text-silver" />
         </h2>
         <Reveal delay={0.2}>
-          <p className="t-lead mx-auto mt-6 max-w-xl">Signals, analysis and education in one place. The client platform is launching soon — explore what&apos;s coming.</p>
+          <p className="t-lead mx-auto mt-6 max-w-xl">Tell us about your broker platform and the support you need. We review each enquiry before agreeing scope. No profit guarantees, no broker passwords and no automatic trade execution.</p>
         </Reveal>
         <Reveal delay={0.3} className="mt-10 flex flex-wrap justify-center gap-3">
-          <ButtonLink href="/platform">
-            Explore Platform <ArrowUpRight size={16} />
+          <ButtonLink href="/account-management">
+            Request Account Management <ArrowUpRight size={16} />
           </ButtonLink>
           <ButtonLink href="/contact" variant="ghost">
-            Talk to us
+            Ask a Question
           </ButtonLink>
         </Reveal>
       </div>
