@@ -24,7 +24,7 @@ export function FinalCTA() {
           <p className="t-lead mx-auto mt-6 max-w-xl">Tell us about your broker platform and the support you need. We review each enquiry before agreeing scope. No profit guarantees, no broker passwords and no automatic trade execution.</p>
         </Reveal>
         <Reveal delay={0.3} className="mt-10 flex flex-wrap justify-center gap-3">
-          <ButtonLink href="/account-management">
+          <ButtonLink href="/account-management-request">
             Request Account Management <ArrowUpRight size={16} />
           </ButtonLink>
           <ButtonLink href="/contact" variant="ghost">
