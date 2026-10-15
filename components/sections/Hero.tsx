@@ -133,7 +133,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.9, ease }} className="mt-9 flex flex-wrap items-center gap-3">
-            <ButtonLink href="/account-management">
+            <ButtonLink href="/account-management-request">
               Request Account Management <ArrowUpRight size={16} />
             </ButtonLink>
             <ButtonLink href="/platform" variant="ghost">
