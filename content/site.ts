@@ -34,7 +34,7 @@ export const site = {
 export type NavItem = { label: string; href: string };
 
 export const primaryNav: NavItem[] = [
-  { label: "Account Management", href: "/account-management" },
+  { label: "Account Management", href: "/account-management-request" },
   { label: "Platform", href: "/platform" },
   { label: "Signals", href: "/signals" },
   { label: "Markets", href: "/markets" },
