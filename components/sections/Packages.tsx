@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
+import Link from "next/link";
 import { TiltCard } from "@/components/ui/Interactive";
-import { ComingSoonBadge, SectionHeading } from "@/components/ui/Primitives";
+import { SectionHeading } from "@/components/ui/Primitives";
 import { Reveal } from "@/components/ui/Reveal";
 import { sortedPackages, type SignalPackage } from "@/content/packages";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,6 @@ export function PackageCard({ p }: { p: SignalPackage }) {
       )}
       <div className="flex items-center justify-between">
         <p className={cn("t-eyebrow text-[0.62rem]", p.featured ? "text-[var(--color-green)]" : "text-[var(--color-muted)]")}>{p.tier}</p>
-        {p.status === "coming-soon" && <ComingSoonBadge />}
       </div>
       <h3 className="mt-5 font-[family-name:var(--font-display)] text-2xl tracking-tight">{p.name}</h3>
       <p className="t-body mt-2 text-sm">{p.description}</p>
@@ -22,7 +22,7 @@ export function PackageCard({ p }: { p: SignalPackage }) {
         <span className="t-num text-5xl text-white">${p.price}</span>
         <span className="text-sm text-[var(--color-muted)]">/ {p.duration}</span>
       </p>
-      <p className="mt-1 text-[0.68rem] text-[var(--color-dim)]">Indicative pricing · confirmed at launch</p>
+      <p className="mt-1 text-[0.68rem] text-[var(--color-dim)]">{p.price === 0 ? "Free access" : p.duration === "one-time" ? "One-time payment" : "Billed monthly · manual crypto review"}</p>
 
       <div className="my-6 grid grid-cols-2 gap-2 text-xs">
         <div className="rounded-lg border border-[var(--line)] bg-white/[0.02] p-2.5">
@@ -46,13 +46,9 @@ export function PackageCard({ p }: { p: SignalPackage }) {
         ))}
       </ul>
 
-      <span
-        className={cn("btn mt-8 w-full cursor-not-allowed opacity-80", p.featured ? "btn-primary" : "btn-ghost")}
-        aria-disabled="true"
-        title="Package subscriptions open when the platform launches"
-      >
-        Coming soon
-      </span>
+      <Link href={p.price === 0 ? "/register" : `/payment?plan=${p.id}`} className={cn("btn mt-8 w-full text-center", p.featured ? "btn-primary" : "btn-ghost")}>
+        {p.price === 0 ? "Create free account" : "Choose package"}
+      </Link>
     </TiltCard>
   );
 }
@@ -67,10 +63,10 @@ export function Packages({ showHeading = true }: { showHeading?: boolean }) {
             align="center"
             eyebrow="Packages"
             title="Signal packages, built for different goals."
-            lead="Start with the essentials or go deeper with commentary and risk tooling. Subscriptions open when the platform launches."
+            lead="Choose a USD plan. Paid access is activated only after manual verification of your crypto transfer."
           />
         )}
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {sortedPackages.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.1}>
               <PackageCard p={p} />

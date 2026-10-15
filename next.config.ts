@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: { formats: ["image/avif", "image/webp"] },
+  async redirects() {
+    return [
+      { source: "/account-management", destination: "/account-management-request", permanent: false },
+      { source: "/account-management/", destination: "/account-management-request", permanent: false },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
