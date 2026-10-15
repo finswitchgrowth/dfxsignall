@@ -4,17 +4,17 @@ import { SpotlightCard } from "@/components/ui/Interactive";
 import { SectionHeading } from "@/components/ui/Primitives";
 import { Reveal } from "@/components/ui/Reveal";
 
-/** Only statements that are true of this website today, plus clearly-labelled platform principles. */
+/** Describe current controls without implying an independent security certification. */
 export const securityToday = [
-  { icon: Globe2, title: "Encrypted in transit", text: "The website is served over HTTPS so pages travel encrypted between our servers and your browser." },
-  { icon: ShieldCheck, title: "Hardened headers", text: "Security headers restrict framing, MIME sniffing, referrer leakage and access to camera, microphone and location." },
-  { icon: EyeOff, title: "No accounts or payments here", text: "This website does not collect passwords, payment details or deposits — there is nothing to steal from a sign-in form." },
+  { icon: Globe2, title: "HTTPS delivery", text: "The public website is served over HTTPS. This protects data in transit, but does not by itself guarantee that every account or workflow is secure." },
+  { icon: ShieldCheck, title: "Access controls", text: "Authenticated API routes check account sessions and role permissions. Access is still subject to ongoing testing and monitoring." },
+  { icon: EyeOff, title: "No password sharing", text: "Never send your login password, trading password or one-time codes to support. Payment-proof review does not require your broker credentials." },
 ];
 
 export const securityPrinciples = [
-  { icon: KeyRound, title: "Strong authentication", text: "Hashed passwords, secure session cookies and optional two-factor authentication for the client platform." },
-  { icon: FileLock2, title: "Least-privilege access", text: "Role-based permissions and audit logs for any administrative action." },
-  { icon: MailWarning, title: "Official channels only", text: "Payment details will only ever appear inside your authenticated account — never in chats or DMs." },
+  { icon: KeyRound, title: "Protect account sessions", text: "Use a unique password and sign out on shared devices." },
+  { icon: FileLock2, title: "Restricted administration", text: "Administrative features are intended for authorized roles and should be reviewed through audit records." },
+  { icon: MailWarning, title: "Official channels only", text: "Submit payment proof only through the authenticated official website and keep your transaction reference." },
 ];
 
 export function Security() {
@@ -24,9 +24,9 @@ export function Security() {
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
           <div>
             <SectionHeading
-              eyebrow="Security"
-              title="Security designed in, not bolted on."
-              lead="We are careful about what we claim. Here is what protects this website today — and the principles the client platform is being built on."
+              eyebrow="Security & account safety"
+              title="Clear controls. Honest limits."
+              lead="We describe the controls currently in use without claiming a security certification or promising that any online service is risk-free."
             />
             <div className="mt-10 grid gap-3">
               {securityToday.map((s, i) => (
@@ -57,7 +57,7 @@ export function Security() {
                 ))}
               </div>
             </div>
-            <p className="mt-3 text-center text-[0.7rem] text-[var(--color-dim)]">Platform principles apply to the client platform when it launches.</p>
+            <p className="mt-3 text-center text-[0.7rem] text-[var(--color-dim)]">These are account-safety principles, not a third-party security certification.</p>
           </Reveal>
         </div>
       </div>
