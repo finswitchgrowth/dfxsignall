@@ -129,7 +129,7 @@ export function Hero() {
           </h1>
 
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.9, ease }} className="t-lead mt-7 max-w-xl">
-            Request account-management onboarding, structured account oversight and MT4/MT5 support. Start with a clear scope, transparent risks and a human review — without sharing trading passwords or private keys.
+            Request account-management onboarding, structured account oversight and MT4/MT5 support. Start with a clear scope, transparent risks and a human review.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.9, ease }} className="mt-9 flex flex-wrap items-center gap-3">
