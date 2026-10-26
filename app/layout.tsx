@@ -9,6 +9,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { PWAInstall } from "@/components/layout/PWAInstall";
 import { Providers } from "@/components/layout/Providers";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { TelegramFestiveBar } from "@/components/layout/TelegramFestiveBar";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <IntroLoader />
           <SmoothScroll />
           <Navbar />
+          <TelegramFestiveBar />
           <PWAInstall />
           <main id="main">{children}</main>
           <Footer />
