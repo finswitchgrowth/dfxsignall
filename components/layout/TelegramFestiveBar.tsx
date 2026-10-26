@@ -19,7 +19,7 @@ export function TelegramFestiveBar() {
           <span className="diwali-light diwali-light-delay-2" /><span className="diwali-light diwali-light-delay" /><span className="diwali-light" />
         </div>
       </div>
-      <aside aria-label="DFXSIGNALL Telegram links" className="telegram-float fixed bottom-4 right-3 z-[60] flex max-w-[calc(100vw-1.5rem)] flex-col gap-2 sm:bottom-5 sm:right-5">
+      <aside aria-label="DFXSIGNALL Telegram links" className="telegram-float fixed bottom-24 right-3 z-[60] flex max-w-[calc(100vw-1.5rem)] flex-col gap-2 sm:bottom-5 sm:right-5">
         <a
           href="https://t.me/dfxsignallofficial"
           target="_blank"
