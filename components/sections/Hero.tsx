@@ -1,13 +1,11 @@
 "use client";
 
 import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
-import Link from "next/link";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useRef, type MouseEvent } from "react";
 import { LazyHeroCanvas } from "@/components/3d/LazyScenes";
 import { ButtonLink } from "@/components/ui/Interactive";
-import { DemoBadge } from "@/components/ui/Primitives";
 import { site } from "@/content/site";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -20,7 +18,7 @@ function SignalGlassCard() {
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-[var(--color-amber)]/15 text-[0.62rem] font-bold text-[var(--color-amber)]">₿</span>
           <div>
             <p className="t-num text-sm font-semibold">BTC/USDT</p>
-            <p className="text-[0.66rem] text-[var(--color-dim)]">4H · Sample signal</p>
+            <p className="text-[0.66rem] text-[var(--color-dim)]">4H · Illustrative example</p>
           </div>
         </div>
         <span className="rounded-md bg-[var(--color-green)]/12 px-2 py-1 text-[0.66rem] font-bold tracking-wider text-[var(--color-green)]">BUY</span>
@@ -44,7 +42,7 @@ function SignalGlassCard() {
           </div>
           <span className="t-num text-[0.66rem] text-[var(--color-muted)]">Confidence 68</span>
         </div>
-        <DemoBadge label="Demo" className="h-5 px-1.5 text-[0.55rem]" />
+        <span className="text-[0.58rem] text-[var(--color-muted)]">Illustrative only</span>
       </div>
     </div>
   );
@@ -70,7 +68,7 @@ function MiniTickerCard() {
           />
         ))}
       </div>
-      <p className="mt-2 text-[0.6rem] uppercase tracking-[0.18em] text-[var(--color-dim)]">Simulated · not live</p>
+      <p className="mt-2 text-[0.6rem] uppercase tracking-[0.18em] text-[var(--color-dim)]">Illustrative visual · live charts on Markets</p>
     </div>
   );
 }
@@ -116,7 +114,7 @@ export function Hero() {
           </motion.p>
 
           <h1 id="hero-title" className="t-display">
-            {["Trade Smarter.", "See More.", "Move Faster."].map((line, i) => (
+            {["Account Management.", "Clearer Oversight.", "Disciplined Decisions."].map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.06em]">
                 <motion.span
                   className={i === 2 ? "text-brand block" : "text-silver block"}
@@ -131,20 +129,19 @@ export function Hero() {
           </h1>
 
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.9, ease }} className="t-lead mt-7 max-w-xl">
-            An intelligent trading and market-information ecosystem. Structured signals, market analysis and education — engineered to help
-            you see more of the market and act with discipline.
+            Request account-management onboarding, structured account oversight and MT4/MT5 support. Start with a clear scope, transparent risks and a human review.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0, duration: 0.9, ease }} className="mt-9 flex flex-wrap items-center gap-3">
-            <ButtonLink href="/platform">
-              Explore Platform <ArrowUpRight size={16} />
+            <ButtonLink href="/account-management-request">
+              Request Account Management <ArrowUpRight size={16} />
             </ButtonLink>
-            <ButtonLink href="/register" variant="ghost">
-              Get Started
+            <ButtonLink href="/platform" variant="ghost">
+              Explore Platform
             </ButtonLink>
-            <Link href="/login" className="link-u ml-2 px-1 text-sm text-[var(--color-fg-soft)]">
-              Login
-            </Link>
+            <ButtonLink href="/how-it-works" variant="ghost">
+              How It Works <ArrowUpRight size={16} />
+            </ButtonLink>
           </motion.div>
 
           <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.25, duration: 1 }} className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-5" aria-label="DFXSIGNALL pillars">

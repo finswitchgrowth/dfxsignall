@@ -1,37 +1,52 @@
 "use client";
 
-import { useDemoQuotes } from "@/components/markets/useDemoFeed";
-import { cn, formatPrice } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+
+declare global {
+  interface Window { TradingView?: unknown }
+}
 
 export function TickerTape() {
-  const quotes = useDemoQuotes();
-  const row = (
-    <>
-      {quotes.map((q) => (
-        <span key={q.symbol} className="flex shrink-0 items-center gap-3 px-7">
-          <span className="t-num text-xs text-[var(--color-fg-soft)]">{q.symbol}</span>
-          <span className="t-num text-xs text-[var(--color-fg)]">{formatPrice(q.price, q.decimals)}</span>
-          <span className={cn("t-num text-[0.7rem]", q.change >= 0 ? "text-[var(--color-green)]" : "text-[var(--color-red)]")}>
-            {q.change >= 0 ? "▲" : "▼"} {Math.abs(q.change).toFixed(2)}%
-          </span>
-          <span className="h-3 w-px bg-[var(--line-strong)]" aria-hidden />
-        </span>
-      ))}
-    </>
-  );
-  return (
-    <section aria-label="Demo market ticker (simulated prices)" className="relative border-y border-[var(--line)] bg-[var(--color-ink-950)]/80">
-      <div className="flex items-center">
-        <span className="chip chip-demo relative z-10 ml-3 shrink-0 bg-[var(--color-ink-950)] sm:ml-6">Demo feed</span>
-        <div className="relative flex-1 overflow-hidden py-3.5 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
-          <div className="flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:animate-none">
-            {row}
-            <span aria-hidden className="flex">
-              {row}
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  const host = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = host.current;
+    if (!node) return;
+    node.innerHTML = "";
+    const container = document.createElement("div");
+    container.className = "tradingview-widget-container";
+    container.style.width = "100%";
+    container.style.height = "46px";
+    const widget = document.createElement("div");
+    widget.className = "tradingview-widget-container__widget";
+    widget.style.width = "100%";
+    widget.style.height = "46px";
+    container.appendChild(widget);
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+    script.text = JSON.stringify({
+      symbols: [
+        { proName: "FX:EURUSD", title: "EUR/USD" },
+        { proName: "FX:GBPUSD", title: "GBP/USD" },
+        { proName: "OANDA:XAUUSD", title: "Gold" },
+        { proName: "OANDA:XAGUSD", title: "Silver" },
+        { proName: "COINBASE:BTCUSD", title: "Bitcoin" },
+        { proName: "COINBASE:ETHUSD", title: "Ethereum" },
+        { proName: "FOREXCOM:SPXUSD", title: "S&P 500" },
+        { proName: "TVC:USOIL", title: "WTI Crude" },
+      ],
+      showSymbolLogo: true,
+      isTransparent: true,
+      displayMode: "adaptive",
+      colorTheme: "dark",
+      locale: "en",
+    });
+    container.appendChild(script);
+    node.appendChild(container);
+    return () => { if (node.contains(container)) node.removeChild(container); };
+  }, []);
+
+  return <section aria-label="TradingView market ticker" className="relative overflow-hidden border-y border-[var(--line)] bg-[var(--color-ink-950)]/80"><div ref={host} className="min-h-[46px] w-full" /><p className="px-4 pb-2 text-center text-[10px] text-[var(--color-dim)]">Market quotes provided by TradingView; data availability and delays vary by symbol and exchange.</p></section>;
 }

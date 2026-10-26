@@ -1,8 +1,13 @@
-import { ComingSoon } from "@/components/layout/ComingSoon";
+import { ManualCryptoPayment } from "@/components/payment/ManualCryptoPayment";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Payments", description: "Payments and package checkout will be available only inside the authenticated DFXSIGNALL client platform.", path: "/payment", noindex: true });
+export const metadata = buildMetadata({
+  title: "Manual Crypto Payments",
+  description: "Pay for DFXSIGNALL packages using BTC, USDT ERC-20 or USDT TRC-20, subject to manual verification.",
+  path: "/payment",
+  noindex: true,
+});
 
 export default function Page() {
-  return <ComingSoon area="Payments" title="Payments" description="Payments and package checkout will be available only inside the authenticated DFXSIGNALL client platform." />;
+  return <ManualCryptoPayment />;
 }

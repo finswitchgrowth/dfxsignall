@@ -27,16 +27,18 @@ export const site = {
   contact: {
     email: "dfxsignall@gmail.com",
   },
-  /** Client platform, admin, payments and sign-up are not live yet. */
-  platformStatus: "coming-soon" as const,
+  /** Account-management enquiries are available; trading execution remains disabled. */
+  platformStatus: "account-management-enquiries" as const,
 };
 
 export type NavItem = { label: string; href: string };
 
 export const primaryNav: NavItem[] = [
+  { label: "Account Management", href: "/account-management-request" },
   { label: "Platform", href: "/platform" },
   { label: "Signals", href: "/signals" },
   { label: "Markets", href: "/markets" },
+  { label: "Trading Tools", href: "/trading-tools" },
   { label: "Packages", href: "/packages" },
   { label: "Security", href: "/security" },
   { label: "Insights", href: "/blog" },

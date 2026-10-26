@@ -1,4 +1,5 @@
-import { Bell, BrainCircuit, CandlestickChart, Gauge, Newspaper, Radar } from "lucide-react";
+import { Bell, BrainCircuit, CandlestickChart, Gauge, Newspaper, Radar, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { TiltCard } from "@/components/ui/Interactive";
 import { SectionHeading } from "@/components/ui/Primitives";
 import { Reveal } from "@/components/ui/Reveal";
@@ -63,12 +64,12 @@ function MiniVisual({ kind }: { kind: number }) {
 }
 
 const items = [
-  { icon: Radar, title: "Signals", text: "Clear entry, stop loss and take-profit levels with timeframe, confidence and rationale." },
-  { icon: CandlestickChart, title: "Charts", text: "Clean multi-timeframe charting with the indicators that matter — nothing decorative." },
-  { icon: Bell, title: "Alerts", text: "Timely notifications for new ideas, level breaks and status changes, built for mobile." },
-  { icon: Gauge, title: "Analytics", text: "Transparent signal history and performance analytics — published only from verified data." },
-  { icon: BrainCircuit, title: "Market intelligence", text: "Context on structure, volatility and sentiment across forex, metals, indices and crypto." },
-  { icon: Newspaper, title: "Trading information", text: "Economic calendar awareness and concise commentary on the events that move price." },
+  { icon: Radar, title: "Signals", slug: "signals", text: "Clear entry, stop loss and take-profit levels with timeframe, confidence and rationale." },
+  { icon: CandlestickChart, title: "Charts", slug: "charts", text: "Clean multi-timeframe charting with the indicators that matter — nothing decorative." },
+  { icon: Bell, title: "Alerts", slug: "alerts", text: "Understand planned alerts for new ideas, level breaks and status changes." },
+  { icon: Gauge, title: "Analytics", slug: "analytics", text: "Transparent signal history and performance analytics — published only from verified data." },
+  { icon: BrainCircuit, title: "Market intelligence", slug: "market-intelligence", text: "Context on structure, volatility and sentiment across forex, metals, indices and crypto." },
+  { icon: Newspaper, title: "Trading information", slug: "trading-information", text: "Economic calendar awareness and concise commentary on the events that move price." },
 ];
 
 export function TradingIntelligence() {
@@ -83,7 +84,8 @@ export function TradingIntelligence() {
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <Reveal key={it.title} delay={0.06 * i}>
-              <TiltCard className="panel flex h-full flex-col p-6">
+              <Link href={`/features/${it.slug}`} aria-label={`Learn about ${it.title}`} className="group block h-full rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-cyan)]">
+              <TiltCard className="panel flex h-full flex-col p-6 transition-colors group-hover:border-[var(--color-cyan)]/50">
                 <div className="flex items-center justify-between" style={{ transform: "translateZ(30px)" }}>
                   <span className="grid h-10 w-10 place-items-center rounded-xl border border-[var(--line-strong)] bg-white/[0.03] text-[var(--color-cyan)]">
                     <it.icon size={18} />
@@ -95,7 +97,9 @@ export function TradingIntelligence() {
                 </div>
                 <h3 className="t-h3">{it.title}</h3>
                 <p className="t-body mt-2 text-sm">{it.text}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-cyan)]">Explore feature <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
               </TiltCard>
+              </Link>
             </Reveal>
           ))}
         </div>
