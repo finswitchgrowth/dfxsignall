@@ -320,3 +320,48 @@ body {
 /* Intro loader failsafe: fades out even if JavaScript never hydrates */
 @keyframes intro-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 .intro-failsafe { animation: intro-failsafe 0.6s ease 2.6s forwards; }
+
+
+/* ── Subtle Diwali season accents + persistent Telegram actions ── */
+.diwali-glow {
+  background: radial-gradient(circle, rgb(255 173 51 / 0.13), rgb(255 100 20 / 0.045) 42%, transparent 72%);
+  filter: blur(2px);
+  animation: diwali-breathe 5s ease-in-out infinite alternate;
+}
+.diwali-glow-right { animation-delay: 1.6s; }
+.diwali-light {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffc45b;
+  box-shadow: 0 0 9px 2px rgb(255 164 43 / 0.48);
+  animation: diwali-twinkle 2.8s ease-in-out infinite alternate;
+}
+.diwali-light-delay { animation-delay: 0.8s; background: #ff7b48; }
+.diwali-light-delay-2 { animation-delay: 1.6s; background: #ffe6a2; }
+.telegram-join {
+  color: #04101b;
+  background: linear-gradient(105deg, #ffd06b, #ffad42 48%, #f8d98d);
+  box-shadow: 0 8px 28px -12px rgb(255 174 66 / 0.65), 0 0 0 1px rgb(255 235 183 / 0.45) inset;
+}
+.telegram-contact {
+  color: var(--color-fg);
+  border-color: rgb(31 216 255 / 0.28);
+  background: rgb(4 12 25 / 0.9);
+  box-shadow: 0 8px 26px -16px rgb(31 216 255 / 0.65);
+}
+@keyframes diwali-breathe {
+  from { opacity: 0.55; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1.06); }
+}
+@keyframes diwali-twinkle {
+  from { opacity: 0.45; box-shadow: 0 0 4px 1px rgb(255 164 43 / 0.25); }
+  to { opacity: 1; box-shadow: 0 0 10px 3px rgb(255 164 43 / 0.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diwali-glow, .diwali-light { animation: none; }
+}
+@media (max-width: 420px) {
+  .telegram-float { right: 0.65rem; bottom: 0.65rem; }
+  .telegram-join, .telegram-contact { min-height: 2.55rem; padding: 0.65rem 0.9rem; font-size: 0.78rem; }
+}
